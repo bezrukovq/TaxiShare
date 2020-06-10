@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">TaxiApp</string>
+    <string name="login">Log In</string>
+    <integer name="com_vk_sdk_AppId">6921812</integer>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="rides_list">Rides List</string>
+    <string name="stops">Stops</string>
+    <string name="join">join</string>
+    <string name="startpoint">Startpoint</string>
+    <string name="destpoint">Destpoint</string>
+    <string name="avialable_places">Avialable places</string>
+    <string name="create">Create</string>
+    <string name="creating_new_ride">Creating new ride</string>
+    <string name="vk">VK</string>
+    <string name="add_to_friends">Add to friends</string>
+    <string name="passengers">Passengers</string>
+    <string name="decline">decline</string>
+    <string name="finish">finish</string>
+    <string name="adding_a_new_friend">adding a new friend</string>
+    <string name="active_ride">Active ride</string>
+    <string name="no_active_ride">You have no active ride. Go to rides list and join first</string>
+    <string name="error">Error</string>
+    <string name="create_new_ride">Create new ride</string>
+    <string name="create_success">New ride successfully created</string>
+    <string name="creating_error">Error while creating. Please try again</string>
+    <string name="history">History</string>
+    <string name="friends">Friends</string>
+    <string name="profile">Profile</string>
+    <string name="stops_list">Stops list</string>
+    <string name="success_join">Successfully joined</string>
+    <plurals name="places">
+        <item quantity="one">place</item>
+        <item quantity="few">places</item>
+        <item quantity="many">places</item>
+        <item quantity="other">places</item>
+    </plurals>
+</resources>

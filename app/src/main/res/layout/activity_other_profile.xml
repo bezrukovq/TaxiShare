@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="252dp">
+
+        <FrameLayout
+            android:id="@+id/color_fill"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@color/colorPrimary" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_alignBottom="@+id/color_fill"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="-52dp"
+            android:elevation="4dp"
+            android:padding="20dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/user_icon"
+            android:transitionName="profile_img"
+            app:civ_border_color="#FFFFFFFF"
+            app:civ_border_width="4dp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="8dp"
+            android:textColor="@color/main_text_color"
+            android:textSize="20sp"
+            android:transitionName="profile_name"
+            tools:text="Brendan Moore" />
+
+        <TextView
+            android:id="@+id/tv_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:textSize="14sp"
+            tools:text="Ceo of bla bla bla" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_vk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/create_button_shape"
+        android:backgroundTint="@color/vk_color"
+        android:fontFamily="@font/roboto"
+        android:text="@string/vk"
+        android:textColor="@android:color/white"
+        android:textSize="25sp" />
+
+    <Button
+        android:id="@+id/btn_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/create_button_shape"
+        android:backgroundTint="@color/colorAccent"
+        android:fontFamily="@font/roboto"
+        android:text="@string/add_to_friends"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
+
+
+    <TextView
+        android:id="@+id/tv_adding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/adding_a_new_friend"
+        android:textColor="@color/colorAccent"
+        android:textSize="12sp"
+        android:visibility="gone"
+        tools:text="static text" />
+
+    <ProgressBar
+        android:id="@+id/pb_adding"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone" />
+</LinearLayout>

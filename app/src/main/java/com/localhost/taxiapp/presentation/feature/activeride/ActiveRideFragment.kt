@@ -22,12 +22,13 @@ import com.localhost.taxiapp.data.user.UserForListWithPic
 import com.localhost.taxiapp.presentation.feature.otherprofile.OtherProfileActivity
 import com.localhost.taxiapp.presentation.feature.userlist.OpenProfileCallback
 import com.localhost.taxiapp.presentation.feature.userlist.UsersAdapter
+import com.md.nails.presentation.basemvp.BaseMvpFragment
 import kotlinx.android.synthetic.main.fragment_active_ride.*
 import kotlinx.android.synthetic.main.fragment_active_ride.swipe_refresh
 import javax.inject.Inject
 
 class ActiveRideFragment :
-    MvpAppCompatFragment(), ActiveRideView, OpenProfileCallback, SwipeRefreshLayout.OnRefreshListener {
+    BaseMvpFragment(), ActiveRideView, OpenProfileCallback, SwipeRefreshLayout.OnRefreshListener {
 
     private var adapter: UsersAdapter =
         UsersAdapter(this)
@@ -44,8 +45,8 @@ class ActiveRideFragment :
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-        inflater.inflate(R.layout.fragment_active_ride, container, false)
+    override val layoutId: Int
+        get() = R.layout.fragment_active_ride
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

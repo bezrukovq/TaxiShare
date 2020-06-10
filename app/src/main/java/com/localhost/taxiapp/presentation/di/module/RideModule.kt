@@ -7,7 +7,7 @@ import com.localhost.taxiapp.presentation.di.RideScope
 import dagger.Module
 import dagger.Provides
 
-@RideScope
+
 @Module
 class RideModule {
     @RideScope

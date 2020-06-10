@@ -14,8 +14,9 @@ import com.localhost.taxiapp.data.ride.Ride
 import kotlinx.android.synthetic.main.fragment_rides_list.*
 import javax.inject.Inject
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.md.nails.presentation.basemvp.BaseMvpFragment
 
-class HistoryFragment : MvpAppCompatFragment(), HistoryView, SwipeRefreshLayout.OnRefreshListener {
+class HistoryFragment : BaseMvpFragment(), HistoryView, SwipeRefreshLayout.OnRefreshListener {
     private var adapter: StoryAdapter =
             StoryAdapter()
 
@@ -36,8 +37,8 @@ class HistoryFragment : MvpAppCompatFragment(), HistoryView, SwipeRefreshLayout.
         activity?.title = getString(R.string.history)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-            inflater.inflate(R.layout.fragment_history, container, false)
+    override val layoutId: Int
+        get() = R.layout.fragment_history
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

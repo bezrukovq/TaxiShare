@@ -1,39 +1,41 @@
 package com.localhost.taxiapp.presentation.feature.history
 
 import com.arellomobile.mvp.InjectViewState
-import com.arellomobile.mvp.MvpPresenter
 import com.localhost.taxiapp.domain.ride.RideModel
 import com.localhost.taxiapp.domain.user.UserModel
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.subscribeBy
+import com.localhost.taxiapp.presentation.base.launchCatching
+import com.localhost.taxiapp.presentation.base.runOnIO
+import com.md.nails.presentation.basemvp.BasePresenter
+import kotlinx.coroutines.async
 import javax.inject.Inject
 
 @InjectViewState
 class HistoryPresenter
-@Inject constructor(val rideModel: RideModel, val userModel: UserModel) : MvpPresenter<HistoryView>() {
-
-    private val compositeDisposable = CompositeDisposable()
+@Inject constructor(val rideModel: RideModel, val userModel: UserModel) :
+    BasePresenter<HistoryView>() {
 
     override fun onFirstViewAttach() =
         refresh()
 
     fun refresh() {
-        val disposable = rideModel.getHistory(userModel.curUser?.screen_name.toString()).subscribeBy(
+        launchCatching(
+            func = {
+                rideModel.getHistory(userModel.curUser?.screen_name.toString())
+            },
             onSuccess = {
-                rideModel.saveHistory(it)
+                runOnIO { rideModel.saveHistory(it) }
                 viewState.setList(it)
             },
             onError = {
-                rideModel.getHistoryDB().subscribeBy(onSuccess = {
-                    viewState.setList(it)
-                },
-                    onError = {})
-            })
-        compositeDisposable.add(disposable)
-    }
-
-    override fun destroyView(view: HistoryView?) {
-        super.destroyView(view)
-        compositeDisposable.clear()
+                launchCatching(
+                    func = {
+                        async { rideModel.getHistoryDB() }.await()
+                    },
+                    onSuccess = {
+                        viewState.setList(it)
+                    }, onError = { })
+            }
+        )
     }
 }
+

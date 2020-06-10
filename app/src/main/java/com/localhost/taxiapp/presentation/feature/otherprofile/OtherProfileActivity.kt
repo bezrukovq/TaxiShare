@@ -73,4 +73,8 @@ class OtherProfileActivity : MvpAppCompatActivity(), OtherView {
             Toast.makeText(this,response.message,Toast.LENGTH_LONG).show()
         }
     }
+
+    override fun showMessage(text: String) {
+        Toast.makeText(this,text,Toast.LENGTH_LONG).show()
+    }
 }

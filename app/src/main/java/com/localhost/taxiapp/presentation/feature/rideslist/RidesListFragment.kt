@@ -15,11 +15,12 @@ import com.localhost.taxiapp.TaxiApplication
 import com.localhost.taxiapp.data.ride.PostRideResponse
 import com.localhost.taxiapp.data.ride.Ride
 import com.localhost.taxiapp.presentation.feature.addride.AddRideActivity
+import com.md.nails.presentation.basemvp.BaseMvpFragment
 import kotlinx.android.synthetic.main.fragment_rides_list.*
 import kotlinx.android.synthetic.main.fragment_rides_list.swipe_refresh
 import javax.inject.Inject
 
-class RidesListFragment : MvpAppCompatFragment(),
+class RidesListFragment : BaseMvpFragment(),
     RidesView, SwipeRefreshLayout.OnRefreshListener, JoinRideCallback {
 
     private var connecting = false
@@ -44,8 +45,8 @@ class RidesListFragment : MvpAppCompatFragment(),
         activity?.title = getString(R.string.rides_list)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-        inflater.inflate(R.layout.fragment_rides_list, container, false)
+    override val layoutId: Int
+        get() = R.layout.fragment_rides_list
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

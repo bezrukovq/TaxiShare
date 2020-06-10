@@ -45,6 +45,10 @@ class LoginActivity : MvpAppCompatActivity(), LoginView {
     override fun loginVK() =
         VKSdk.login(this, VKScope.PHOTOS)
 
+    override fun showMessage(text: String) {
+        Toast.makeText(this,text,Toast.LENGTH_LONG).show()
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (VKSdk.onActivityResult(requestCode, resultCode, data, object : VKCallback<VKAccessToken> {
                 override fun onResult(res: VKAccessToken) {

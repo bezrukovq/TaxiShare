@@ -5,7 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-suspend fun runOnIO(func: () -> Unit) {
+suspend fun runOnIO(func: suspend () -> Unit) {
     withContext(Dispatchers.IO) {
         func()
     }
@@ -13,8 +13,8 @@ suspend fun runOnIO(func: () -> Unit) {
 
 fun <T> CoroutineScope.launchCatching(
     func: suspend () -> T,
-    onSuccess: suspend (T) -> Unit,
-    onError: suspend (Throwable) -> Unit
+    onSuccess:  (T) -> Unit,
+    onError:  (Throwable) -> Unit
 ) {
     launch {
         runCatching {

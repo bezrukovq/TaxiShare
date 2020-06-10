@@ -6,7 +6,11 @@ import com.localhost.taxiapp.domain.user.UserModel
 import com.localhost.taxiapp.presentation.base.launchCatching
 import com.localhost.taxiapp.presentation.base.runOnIO
 import com.md.nails.presentation.basemvp.BasePresenter
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.lang.Exception
 import javax.inject.Inject
 
 @InjectViewState
@@ -23,13 +27,17 @@ class HistoryPresenter
                 rideModel.getHistory(userModel.curUser?.screen_name.toString())
             },
             onSuccess = {
-                runOnIO { rideModel.saveHistory(it) }
+                launch(handler) {
+                    runOnIO {
+                        rideModel.saveHistory(it)
+                    }
+                }
                 viewState.setList(it)
             },
             onError = {
                 launchCatching(
                     func = {
-                        async { rideModel.getHistoryDB() }.await()
+                        rideModel.getHistoryDB()
                     },
                     onSuccess = {
                         viewState.setList(it)

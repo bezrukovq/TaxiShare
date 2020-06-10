@@ -38,11 +38,11 @@ class RideModel(val taxiApiService: TaxiApiService, val rideRepository: RideRepo
         taxiApiService.finish(ActionRidePost(action, rideId, screen_name.toString()))
 
 
-    fun saveHistory(ridesList: List<Ride>) {
+    suspend fun saveHistory(ridesList: List<Ride>) {
         rideRepository.deleteAll()
         rideRepository.insertRides(ridesList)
     }
 
-    fun getHistoryDB(): List<Ride> =
+    suspend fun getHistoryDB(): List<Ride> =
         rideRepository.getRides()
 }

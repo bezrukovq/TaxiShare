@@ -9,12 +9,12 @@ import kotlinx.coroutines.Deferred
 
 class RideRepository(val rideDAO: RideDAO) {
 
-    fun deleteAll() =
+    suspend fun deleteAll() =
         rideDAO.deleteAll()
 
-    fun getRides() =
+    suspend fun getRides() =
         rideDAO.getHistory()
 
-    fun insertRides(ridesList: List<Ride>) =
+    suspend fun insertRides(ridesList: List<Ride>) =
          rideDAO.insertRides(ridesList)
 }

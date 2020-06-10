@@ -5,21 +5,16 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Deferred
 
 class RideRepository(val rideDAO: RideDAO) {
 
     fun deleteAll() =
-        Completable.fromAction { rideDAO.deleteAll() }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+        rideDAO.deleteAll()
 
-    fun getRides(): Single<List<Ride>> =
+    fun getRides() =
         rideDAO.getHistory()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
 
     fun insertRides(ridesList: List<Ride>) =
-        Completable.fromAction { rideDAO.insertRides(ridesList) }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread()).subscribe()
+         rideDAO.insertRides(ridesList)
 }

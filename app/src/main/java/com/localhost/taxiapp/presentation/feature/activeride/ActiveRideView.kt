@@ -7,9 +7,10 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.localhost.taxiapp.data.ride.PostRideResponse
 import com.localhost.taxiapp.data.ride.Ride
 import com.localhost.taxiapp.data.user.UserForListWithPic
+import com.md.nails.presentation.basemvp.BaseView
 
 @StateStrategyType(AddToEndSingleStrategy::class)
-interface ActiveRideView : MvpView {
+interface ActiveRideView : BaseView {
     fun setList(list: List<UserForListWithPic>)
     @StateStrategyType(SingleStateStrategy::class)
     fun setRide(ride: Ride)

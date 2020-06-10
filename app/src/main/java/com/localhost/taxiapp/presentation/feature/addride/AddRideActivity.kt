@@ -63,4 +63,8 @@ class AddRideActivity : MvpAppCompatActivity(), AddRideView {
             posting_progress.visibility = View.GONE
         }
     }
+
+    override fun showMessage(text: String) {
+        Toast.makeText(this,text,Toast.LENGTH_LONG).show()
+    }
 }

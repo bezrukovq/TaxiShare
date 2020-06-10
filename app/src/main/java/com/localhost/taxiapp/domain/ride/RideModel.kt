@@ -11,52 +11,38 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Deferred
 
 class RideModel(val taxiApiService: TaxiApiService, val rideRepository: RideRepository) {
 
     var stopsList = arrayOf("Ду", "Двойка", "Бустан")
     var placesList = arrayOf(1, 2, 3, 4, 5, 6, 7)
 
-    fun getCurrRide(userId: String?): Single<Ride> =
+    suspend fun getCurrRide(userId: String?): Ride =
         taxiApiService.getCurrRide(userId)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
 
-    fun getPassengers(rideId: Int, screen_name: String): Single<List<UserForList>> =
+    suspend fun getPassengers(rideId: Int, screen_name: String): List<UserForList> =
         taxiApiService.getPassengers(rideId, screen_name)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
 
-    fun getRidesList(): Single<List<Ride>> =
+    suspend fun getRidesList(): List<Ride> =
         taxiApiService.getRidesList()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
 
-    fun getHistory(username: String): Single<List<Ride>> =
+    suspend fun getHistory(username: String): List<Ride> =
         taxiApiService.getHistory(username)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
 
 
-    fun postRide(newRidePost: NewRidePost): Single<PostRideResponse> =
+    suspend fun postRide(newRidePost: NewRidePost): PostRideResponse =
         taxiApiService.postRide(newRidePost)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
 
-    fun rideAction(rideId: Int, screen_name: String?, action: String): Single<PostRideResponse> =
+    suspend fun rideAction(rideId: Int, screen_name: String?, action: String): PostRideResponse =
         taxiApiService.finish(ActionRidePost(action, rideId, screen_name.toString()))
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
 
 
     fun saveHistory(ridesList: List<Ride>) {
-        rideRepository.deleteAll().subscribeBy(
-            onComplete = {
-                rideRepository.insertRides(ridesList)
-            },
-            onError = {})
+        rideRepository.deleteAll()
+        rideRepository.insertRides(ridesList)
     }
 
-    fun getHistoryDB(): Single<List<Ride>> =
+    fun getHistoryDB(): List<Ride> =
         rideRepository.getRides()
 }

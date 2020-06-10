@@ -1,29 +1,36 @@
 package com.localhost.taxiapp.presentation.feature.activeride
 
 import com.arellomobile.mvp.InjectViewState
-import com.arellomobile.mvp.MvpPresenter
 import com.localhost.taxiapp.domain.ride.RideModel
 import com.localhost.taxiapp.domain.user.UserModel
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.subscribeBy
+import com.localhost.taxiapp.presentation.base.launchCatching
+import com.md.nails.presentation.basemvp.BasePresenter
 import javax.inject.Inject
 
 @InjectViewState
 class ActiveRidePresenter
-@Inject constructor(val rideModel: RideModel, val userModel: UserModel) : MvpPresenter<ActiveRideView>() {
-
-    private val compositeDisposable = CompositeDisposable()
+@Inject constructor(val rideModel: RideModel, val userModel: UserModel) :
+    BasePresenter<ActiveRideView>() {
 
     override fun onFirstViewAttach() {
         refresh()
     }
 
     fun refresh() {
-        val disposable = rideModel.getCurrRide(userModel.curUser?.screen_name).subscribeBy(
+        launchCatching(
+            func = {
+                rideModel.getCurrRide(userModel.curUser?.screen_name)
+            },
             onSuccess = {
                 if (it.id != -1) {
                     viewState.setRide(it)
-                    rideModel.getPassengers(it.id, userModel.curUser?.screen_name.toString()).subscribeBy(
+                    launchCatching(
+                        func = {
+                            rideModel.getPassengers(
+                                it.id,
+                                userModel.curUser?.screen_name.toString()
+                            )
+                        },
                         onSuccess = {
                             viewState.setList(userModel.convertForList(it))
                         },
@@ -39,22 +46,19 @@ class ActiveRidePresenter
                 viewState.showError(it.message)
             }
         )
-        compositeDisposable.add(disposable)
     }
 
     fun rideAction(rideId: Int, action: String) {
-        val disposable = rideModel.rideAction(rideId, userModel.curUser?.screen_name, action).subscribeBy(
+        launchCatching(
+            func = {
+                rideModel.rideAction(rideId, userModel.curUser?.screen_name, action)
+            },
             onSuccess = {
                 viewState.finish(it)
             },
             onError = {
                 viewState.showError(it.message)
             })
-        compositeDisposable.add(disposable)
     }
 
-    override fun destroyView(view: ActiveRideView?) {
-        super.destroyView(view)
-        compositeDisposable.clear()
-    }
 }

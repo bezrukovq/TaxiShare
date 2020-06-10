@@ -6,9 +6,10 @@ import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.localhost.taxiapp.data.ride.PostRideResponse
 import com.localhost.taxiapp.data.ride.Ride
+import com.md.nails.presentation.basemvp.BaseView
 
 @StateStrategyType(AddToEndSingleStrategy::class)
-interface RidesView : MvpView {
+interface RidesView : BaseView {
     fun setList(list: List<Ride>)
     @StateStrategyType(SkipStrategy::class)
     fun joinResult(response: PostRideResponse)

@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_friends.*
 import javax.inject.Inject
 import androidx.core.view.ViewCompat
 import android.view.View
+import android.widget.Toast
 import com.localhost.taxiapp.presentation.feature.userlist.UsersAdapter
 import com.localhost.taxiapp.presentation.feature.userlist.OpenProfileCallback
 
@@ -47,6 +48,10 @@ class FriendsActivity : MvpAppCompatActivity(), FriendsView, OpenProfileCallback
     override fun setList(list: List<UserForListWithPic>) {
         adapter.users = list
         adapter.notifyDataSetChanged()
+    }
+
+    override fun showMessage(text: String) {
+        Toast.makeText(this,text,Toast.LENGTH_LONG).show()
     }
 
     override fun open(userForListWithPic: UserForListWithPic, textView: View, imageView: View) {
